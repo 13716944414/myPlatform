@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.ts.system.dao.SUserDao">
+
+	<!-- <resultMap id="BaseResultMap" type="cn.com.ts.system.model.SUser">
+			<id column="id" property="id" jdbcType="VARCHAR" />	
+			<result column="gender" property="gender" jdbcType="VARCHAR" />
+			<result column="comment_info" property="commentInfo" jdbcType="VARCHAR" />
+			<result column="login_name" property="loginName" jdbcType="VARCHAR" />
+			<result column="password" property="password" jdbcType="VARCHAR" />
+			<result column="chinese_name" property="chineseName" jdbcType="VARCHAR" />
+			<result column="identification_card" property="identificationCard" jdbcType="VARCHAR" />
+			<result column="mobile_phone" property="mobilePhone" jdbcType="VARCHAR" />
+			<result column="email" property="email" jdbcType="VARCHAR" />
+			<result column="state" property="state" jdbcType="VARCHAR" />
+			<result column="entry_time" property="entryTime" jdbcType="DATE" />
+			<result column="dimission_time" property="dimissionTime" jdbcType="DATE" />
+			<result column="create_by" property="createBy" jdbcType="VARCHAR" />
+			<result column="create_time" property="createTime" jdbcType="DATE" />
+			<result column="lastmodify_by" property="lastmodifyBy" jdbcType="VARCHAR" />
+			<result column="lastmodify_time" property="lastmodifyTime" jdbcType="DATE" />
+	</resultMap> -->
+	
+	<sql id="Base_Column_List">
+			id,
+			gender,
+			comment_info,
+			login_name,
+			password,
+			chinese_name,
+			identification_card,
+			mobile_phone,
+			email,
+			state,
+			entry_time,
+			dimission_time,
+			create_by,
+			create_time,
+			lastmodify_by,
+			lastmodify_time
+	</sql>
+	
+	<sql id = "SUserList" >
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM  s_user
+		<where>
+				<if test="id != null and id != ''"> AND id = #{id}</if>
+				<if test="gender != null and gender != ''"> AND gender = #{gender}</if>
+				<if test="commentInfo != null and commentInfo != ''"> AND comment_info = #{commentInfo}</if>
+				<if test="loginName != null and loginName != ''"> AND login_name = #{loginName}</if>
+				<if test="password != null and password != ''"> AND password = #{password}</if>
+				<if test="chineseName != null and chineseName != ''"> AND chinese_name = #{chineseName}</if>
+				<if test="identificationCard != null and identificationCard != ''"> AND identification_card = #{identificationCard}</if>
+				<if test="mobilePhone != null and mobilePhone != ''"> AND mobile_phone = #{mobilePhone}</if>
+				<if test="email != null and email != ''"> AND email = #{email}</if>
+				<if test="state != null and state != ''"> AND state = #{state}</if>
+				<if test="entryTime != null and entryTime != ''"> AND entry_time = #{entryTime}</if>
+				<if test="dimissionTime != null and dimissionTime != ''"> AND dimission_time = #{dimissionTime}</if>
+				<if test="createBy != null and createBy != ''"> AND create_by = #{createBy}</if>
+				<if test="createTime != null and createTime != ''"> AND create_time = #{createTime}</if>
+				<if test="lastmodifyBy != null and lastmodifyBy != ''"> AND lastmodify_by = #{lastmodifyBy}</if>
+				<if test="lastmodifyTime != null and lastmodifyTime != ''"> AND lastmodify_time = #{lastmodifyTime}</if>
+		</where>
+	</sql>
+	
+	<select id="selectByPrimaryKey" parameterType="String" resultType="cn.com.ts.system.model.SUser">
+		SELECT
+			<include refid="Base_Column_List" />	
+		FROM s_user
+		WHERE 
+			id = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectByModel" parameterType="cn.com.ts.system.model.SUser" resultType="cn.com.ts.system.model.SUser">
+		SELECT
+			<include refid="Base_Column_List" />	
+		FROM  s_user
+		<where>
+				<if test="id != null and id != ''"> AND id = #{id}</if>
+				<if test="gender != null and gender != ''"> AND gender = #{gender}</if>
+				<if test="commentInfo != null and commentInfo != ''"> AND comment_info = #{commentInfo}</if>
+				<if test="loginName != null and loginName != ''"> AND login_name = #{loginName}</if>
+				<if test="password != null and password != ''"> AND password = #{password}</if>
+				<if test="chineseName != null and chineseName != ''"> AND chinese_name = #{chineseName}</if>
+				<if test="identificationCard != null and identificationCard != ''"> AND identification_card = #{identificationCard}</if>
+				<if test="mobilePhone != null and mobilePhone != ''"> AND mobile_phone = #{mobilePhone}</if>
+				<if test="email != null and email != ''"> AND email = #{email}</if>
+				<if test="state != null and state != ''"> AND state = #{state}</if>
+				<if test="entryTime != null and entryTime != ''"> AND entry_time = #{entryTime}</if>
+				<if test="dimissionTime != null and dimissionTime != ''"> AND dimission_time = #{dimissionTime}</if>
+				<if test="createBy != null and createBy != ''"> AND create_by = #{createBy}</if>
+				<if test="createTime != null and createTime != ''"> AND create_time = #{createTime}</if>
+				<if test="lastmodifyBy != null and lastmodifyBy != ''"> AND lastmodify_by = #{lastmodifyBy}</if>
+				<if test="lastmodifyTime != null and lastmodifyTime != ''"> AND lastmodify_time = #{lastmodifyTime}</if>
+		</where>	
+	</select>
+	
+	<select id="list" parameterType="cn.com.ts.system.model.SUser" resultType="cn.com.ts.system.model.SUser">
+		<include refid="SUserList"/>
+	</select>
+	
+	<select id="page" parameterType="cn.com.ts.system.model.SUser" resultType="cn.com.ts.system.model.SUser">
+		<include refid="SUserList"/>
+	</select>
+	
+	<select id="count" parameterType="cn.com.ts.system.model.SUser" resultType="int">
+		SELECT count(*) FROM s_user
+		<where>
+				<if test="id != null and id != ''"> AND id = #{id}</if>
+				<if test="gender != null and gender != ''"> AND gender = #{gender}</if>
+				<if test="commentInfo != null and commentInfo != ''"> AND comment_info = #{commentInfo}</if>
+				<if test="loginName != null and loginName != ''"> AND login_name = #{loginName}</if>
+				<if test="password != null and password != ''"> AND password = #{password}</if>
+				<if test="chineseName != null and chineseName != ''"> AND chinese_name = #{chineseName}</if>
+				<if test="identificationCard != null and identificationCard != ''"> AND identification_card = #{identificationCard}</if>
+				<if test="mobilePhone != null and mobilePhone != ''"> AND mobile_phone = #{mobilePhone}</if>
+				<if test="email != null and email != ''"> AND email = #{email}</if>
+				<if test="state != null and state != ''"> AND state = #{state}</if>
+				<if test="entryTime != null and entryTime != ''"> AND entry_time = #{entryTime}</if>
+				<if test="dimissionTime != null and dimissionTime != ''"> AND dimission_time = #{dimissionTime}</if>
+				<if test="createBy != null and createBy != ''"> AND create_by = #{createBy}</if>
+				<if test="createTime != null and createTime != ''"> AND create_time = #{createTime}</if>
+				<if test="lastmodifyBy != null and lastmodifyBy != ''"> AND lastmodify_by = #{lastmodifyBy}</if>
+				<if test="lastmodifyTime != null and lastmodifyTime != ''"> AND lastmodify_time = #{lastmodifyTime}</if>
+		</where>
+	</select>
+	
+	<select id="max" parameterType="String" resultType="long">
+		SELECT max(id) FROM s_user
+	</select>
+	
+	<insert id="insert" parameterType="cn.com.ts.system.model.SUser" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO s_user (
+			<include refid="Base_Column_List" />
+		) VALUES (	
+				#{id,jdbcType=VARCHAR,jdbcType=VARCHAR}
+				#{gender,jdbcType=VARCHAR,jdbcType=VARCHAR}
+				#{commentInfo,jdbcType=VARCHAR,jdbcType=VARCHAR}
+				#{loginName,jdbcType=VARCHAR,jdbcType=VARCHAR}
+				#{password,jdbcType=VARCHAR,jdbcType=VARCHAR}
+				#{chineseName,jdbcType=VARCHAR,jdbcType=VARCHAR}
+				#{identificationCard,jdbcType=VARCHAR,jdbcType=VARCHAR}
+				#{mobilePhone,jdbcType=VARCHAR,jdbcType=VARCHAR}
+				#{email,jdbcType=VARCHAR,jdbcType=VARCHAR}
+				#{state,jdbcType=VARCHAR,jdbcType=VARCHAR}
+				#{entryTime,jdbcType=DATE,jdbcType=DATE}
+				#{dimissionTime,jdbcType=DATE,jdbcType=DATE}
+				#{createBy,jdbcType=VARCHAR,jdbcType=VARCHAR}
+				#{createTime,jdbcType=DATE,jdbcType=DATE}
+				#{lastmodifyBy,jdbcType=VARCHAR,jdbcType=VARCHAR}
+				#{lastmodifyTime,jdbcType=DATE,jdbcType=DATE}
+		)
+	</insert>
+	
+	<delete id="delete" parameterType="cn.com.ts.system.model.SUser">
+		DELETE FROM s_user
+		WHERE
+		id = #{id}
+	</delete>
+	
+	<update id="update" parameterType="cn.com.ts.system.model.SUser">
+		UPDATE s_user
+		<trim prefix="SET" suffixOverrides=",">
+				<if test="id != null">id = #{id,jdbcType=VARCHAR,jdbcType=VARCHAR},</if>
+				<if test="gender != null">gender = #{gender,jdbcType=VARCHAR,jdbcType=VARCHAR},</if>
+				<if test="commentInfo != null">comment_info = #{commentInfo,jdbcType=VARCHAR,jdbcType=VARCHAR},</if>
+				<if test="loginName != null">login_name = #{loginName,jdbcType=VARCHAR,jdbcType=VARCHAR},</if>
+				<if test="password != null">password = #{password,jdbcType=VARCHAR,jdbcType=VARCHAR},</if>
+				<if test="chineseName != null">chinese_name = #{chineseName,jdbcType=VARCHAR,jdbcType=VARCHAR},</if>
+				<if test="identificationCard != null">identification_card = #{identificationCard,jdbcType=VARCHAR,jdbcType=VARCHAR},</if>
+				<if test="mobilePhone != null">mobile_phone = #{mobilePhone,jdbcType=VARCHAR,jdbcType=VARCHAR},</if>
+				<if test="email != null">email = #{email,jdbcType=VARCHAR,jdbcType=VARCHAR},</if>
+				<if test="state != null">state = #{state,jdbcType=VARCHAR,jdbcType=VARCHAR},</if>
+				<if test="entryTime != null">entry_time = #{entryTime,jdbcType=DATE,jdbcType=DATE},</if>
+				<if test="dimissionTime != null">dimission_time = #{dimissionTime,jdbcType=DATE,jdbcType=DATE},</if>
+				<if test="createBy != null">create_by = #{createBy,jdbcType=VARCHAR,jdbcType=VARCHAR},</if>
+				<if test="createTime != null">create_time = #{createTime,jdbcType=DATE,jdbcType=DATE},</if>
+				<if test="lastmodifyBy != null">lastmodify_by = #{lastmodifyBy,jdbcType=VARCHAR,jdbcType=VARCHAR},</if>
+				<if test="lastmodifyTime != null">lastmodify_time = #{lastmodifyTime,jdbcType=DATE,jdbcType=DATE},</if>
+		</trim>
+		WHERE
+			id = #{id}
+	</update>
+	
+	<update id="updateCondition" parameterType="Map">
+		UPDATE s_user
+		<trim prefix="SET" suffixOverrides=",">
+				<if test="id != null">id = #{id,jdbcType=VARCHAR},</if>
+				<if test="id != null">gender = #{gender,jdbcType=VARCHAR},</if>
+				<if test="id != null">comment_info = #{commentInfo,jdbcType=VARCHAR},</if>
+				<if test="id != null">login_name = #{loginName,jdbcType=VARCHAR},</if>
+				<if test="id != null">password = #{password,jdbcType=VARCHAR},</if>
+				<if test="id != null">chinese_name = #{chineseName,jdbcType=VARCHAR},</if>
+				<if test="id != null">identification_card = #{identificationCard,jdbcType=VARCHAR},</if>
+				<if test="id != null">mobile_phone = #{mobilePhone,jdbcType=VARCHAR},</if>
+				<if test="id != null">email = #{email,jdbcType=VARCHAR},</if>
+				<if test="id != null">state = #{state,jdbcType=VARCHAR},</if>
+				<if test="id != null">entry_time = #{entryTime,jdbcType=DATE},</if>
+				<if test="id != null">dimission_time = #{dimissionTime,jdbcType=DATE},</if>
+				<if test="id != null">create_by = #{createBy,jdbcType=VARCHAR},</if>
+				<if test="id != null">create_time = #{createTime,jdbcType=DATE},</if>
+				<if test="id != null">lastmodify_by = #{lastmodifyBy,jdbcType=VARCHAR},</if>
+				<if test="id != null">lastmodify_time = #{lastmodifyTime,jdbcType=DATE},</if>
+			
+		</trim>
+		<where>
+				<if test="id != null and id != ''">AND id = #{id}</if>
+				<if test="gender != null and gender != ''">AND gender = #{gender}</if>
+				<if test="commentInfo != null and commentInfo != ''">AND comment_info = #{commentInfo}</if>
+				<if test="loginName != null and loginName != ''">AND login_name = #{loginName}</if>
+				<if test="password != null and password != ''">AND password = #{password}</if>
+				<if test="chineseName != null and chineseName != ''">AND chinese_name = #{chineseName}</if>
+				<if test="identificationCard != null and identificationCard != ''">AND identification_card = #{identificationCard}</if>
+				<if test="mobilePhone != null and mobilePhone != ''">AND mobile_phone = #{mobilePhone}</if>
+				<if test="email != null and email != ''">AND email = #{email}</if>
+				<if test="state != null and state != ''">AND state = #{state}</if>
+				<if test="entryTime != null and entryTime != ''">AND entry_time = #{entryTime}</if>
+				<if test="dimissionTime != null and dimissionTime != ''">AND dimission_time = #{dimissionTime}</if>
+				<if test="createBy != null and createBy != ''">AND create_by = #{createBy}</if>
+				<if test="createTime != null and createTime != ''">AND create_time = #{createTime}</if>
+				<if test="lastmodifyBy != null and lastmodifyBy != ''">AND lastmodify_by = #{lastmodifyBy}</if>
+				<if test="lastmodifyTime != null and lastmodifyTime != ''">AND lastmodify_time = #{lastmodifyTime}</if>
+		</where>
+	</update>
+</mapper>
