@@ -13,7 +13,7 @@ import cn.com.ts.base.BaseModel;
 public class SUser extends BaseModel{
 	
 	/**
-	 * 主键
+	 * 主键1
 	 */
 	private String id;
 	
