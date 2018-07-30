@@ -2,6 +2,10 @@ package cn.com.ts.system.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import javax.annotation.Resource;
+
 import cn.com.ts.system.dao.SUserDao;
 import cn.com.ts.system.model.SUser;
 import cn.com.ts.system.service.SUserService;
@@ -11,8 +15,10 @@ import cn.com.ts.system.service.SUserService;
  * @author jiangjiaxin
  * @date 
  */
+@Service
 public class  SUserServiceImpl implements SUserService{
 	
+	@Resource
 	private SUserDao sUserDao;
 
 	public  SUser selectByPrimaryKey(String id) {

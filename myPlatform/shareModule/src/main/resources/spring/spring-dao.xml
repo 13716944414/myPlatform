@@ -1,37 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xmlns:context="http://www.springframework.org/schema/context"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
-           http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
-           http://www.springframework.org/schema/context
-           http://www.springframework.org/schema/context/spring-context.xsd">
- 
- 	<context:property-placeholder location="classpath:jdbc.properties"/>
- 
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-    	<property name="driverClass" value="${jdbc.driver}" />  
-	    <property name="jdbcUrl" value="${jdbc.url}" />  
-	    <property name="user" value="${jdbc.username}" />  
-	    <property name="password" value="${jdbc.password}" />  
-	    <property name="autoCommitOnClose" value="true"/>  
-	    <property name="checkoutTimeout" value="${cpool.checkoutTimeout}"/>  
-	    <property name="initialPoolSize" value="${cpool.minPoolSize}"/>  
-	    <property name="minPoolSize" value="${cpool.minPoolSize}"/>  
-	    <property name="maxPoolSize" value="${cpool.maxPoolSize}"/>  
-	    <property name="maxIdleTime" value="${cpool.maxIdleTime}"/>  
-	    <property name="acquireIncrement" value="${cpool.acquireIncrement}"/>  
-	    <property name="maxIdleTimeExcessConnections" value="${cpool.maxIdleTimeExcessConnections}"/>  
-    </bean>
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"  
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:mvc="http://www.springframework.org/schema/mvc"  
+    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans    
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
+                        http://www.springframework.org/schema/context    
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd  
+                        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd    
+                        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd    
+                        http://www.springframework.org/schema/mvc    
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd"> 
+
+	<!--1 引入属性文件，在配置中占位使用 -->
+	<context:property-placeholder location="classpath:jdbc.properties" />
+
+	<!--2 配置C3P0数据源 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driver}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="autoCommitOnClose" value="true" />
+		<property name="checkoutTimeout" value="${cpool.checkoutTimeout}" />
+		<property name="initialPoolSize" value="${cpool.minPoolSize}" />
+		<property name="minPoolSize" value="${cpool.minPoolSize}" />
+		<property name="maxPoolSize" value="${cpool.maxPoolSize}" />
+		<property name="maxIdleTime" value="${cpool.maxIdleTime}" />
+		<property name="acquireIncrement" value="${cpool.acquireIncrement}" />
+		<property name="maxIdleTimeExcessConnections" value="${cpool.maxIdleTimeExcessConnections}" />
+	</bean>
+
+
+	<!--3 会话工厂bean sqlSessionFactoryBean -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 数据源 -->
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configuration">
+			<bean class="org.apache.ibatis.session.Configuration">
+				<!-- 开启自动驼峰命名规则（camel case）映射, 即从经典数据库列名 A_COLUMN 到经典 Java 属性名 aColumn 的类似映射 -->
+				<property name="mapUnderscoreToCamelCase" value="true"/>
+			</bean>
+		</property>
+		<!-- 别名 -->
+		<!-- <property name="typeAliasesPackage" value="com.zhangguo.bookstore.entities"></property> -->
+		<!-- sql映射文件路径 -->
+		<property name="mapperLocations" value="classpath*:cn/com/ts/system/mapper/*.xml"></property>
+	</bean>
+
+	<!--4 自动扫描对象关系映射 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!--指定会话工厂，如果当前上下文中只定义了一个则该属性可省去 -->
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+		<!-- 指定要自动扫描接口的基础包，实现接口 -->
+		<property name="basePackage" value="cn.com.ts.system.dao"></property>
+	</bean>
+
+	<!--5 声明式事务管理 -->
+	<!--定义事物管理器，由spring管理事务 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<!--支持注解驱动的事务管理，指定事务管理器 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
     
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-    	<property name="dataSource" ref="dataSource"/>
-    </bean>
+    <!--6 容器自动扫描IOC组件  -->
+    <context:component-scan base-package="com.zhangguo.bookstore"></context:component-scan>
     
-    <bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-    	<property name="mapperInterface" value="cn.com.ts.system.dao.SUserDao"></property>
-    	<property name="sqlSessionFactory" ref="sqlSessionFactoryBean"></property>
-    </bean>
-    <!-- 配置 ComboPooledDataSource、SqlSessionFactoryBean、MapperFactoryBean.. 未完成-->
+    <!--7 aspectj支持自动代理实现AOP功能 -->
+    <aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
+
+	<bean id="userServiceImpl" class="cn.com.ts.system.service.impl.SUserServiceImpl"></bean>
 
 </beans>

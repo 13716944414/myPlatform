@@ -9,4 +9,5 @@ import cn.com.ts.system.model. SUser;
  */
 public interface  SUserDao  extends BaseDao<String,  SUser>{
 	
+	public SUser selectByPrimaryKey(String id);
 }
