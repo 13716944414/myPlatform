@@ -18,7 +18,7 @@ import cn.com.ts.system.service.SUserService;
 @Service
 public class  SUserServiceImpl implements SUserService{
 	
-	@Resource
+	@Autowired
 	private SUserDao sUserDao;
 
 	public  SUser selectByPrimaryKey(String id) {

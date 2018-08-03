@@ -27,7 +27,7 @@ public class Main {
 			SqlSessionFactoryBuilder ssfb = new SqlSessionFactoryBuilder();
 			SqlSessionFactory factory = ssfb.build(input);
 			SqlSession session = factory.openSession();
-			//SUser user = session.selectOne("cn.com.ts.system.dao.ISUserDAO.selectByPrimaryKey", "1");
+			//SUser user = session.selectOne("cn.com.ts.system.dao.SUserDao.selectByPrimaryKey", "1");
 			SUserDao userdao = session.getMapper(SUserDao.class);
 			SUser user = userdao.selectByPrimaryKey("1");
 			System.out.println(user.getChineseName());

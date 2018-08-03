@@ -41,6 +41,8 @@
 			<bean class="org.apache.ibatis.session.Configuration">
 				<!-- 开启自动驼峰命名规则（camel case）映射, 即从经典数据库列名 A_COLUMN 到经典 Java 属性名 aColumn 的类似映射 -->
 				<property name="mapUnderscoreToCamelCase" value="true"/>
+				<property name="useColumnLabel" value="true"></property>
+				<!-- <property name="jdbcTypeForNull" value="NULL"></property> -->
 			</bean>
 		</property>
 		<!-- 别名 -->
@@ -57,21 +59,20 @@
 		<property name="basePackage" value="cn.com.ts.system.dao"></property>
 	</bean>
 
+	
 	<!--5 声明式事务管理 -->
 	<!--定义事物管理器，由spring管理事务 -->
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<!-- <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
-	</bean>
+	</bean> -->
 	
 	<!--支持注解驱动的事务管理，指定事务管理器 -->
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <!-- <tx:annotation-driven transaction-manager="transactionManager"/> -->
     
     <!--6 容器自动扫描IOC组件  -->
-    <context:component-scan base-package="com.zhangguo.bookstore"></context:component-scan>
+    <!-- <context:component-scan base-package="cn.com.ts.system.dao,cn.com.ts.system.service.*"></context:component-scan> -->
     
     <!--7 aspectj支持自动代理实现AOP功能 -->
-    <aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
-
-	<bean id="userServiceImpl" class="cn.com.ts.system.service.impl.SUserServiceImpl"></bean>
+    <!-- <aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy> -->
 
 </beans>

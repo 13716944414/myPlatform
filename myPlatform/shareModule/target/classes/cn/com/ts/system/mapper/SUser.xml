@@ -130,25 +130,25 @@
 		SELECT max(id) FROM s_user
 	</select>
 	
-	<insert id="insert" parameterType="cn.com.ts.system.model.SUser" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insert" parameterType="cn.com.ts.system.model.SUser" >
 		INSERT INTO s_user (
 			<include refid="Base_Column_List" />
 		) VALUES (	
-				#{id,jdbcType=VARCHAR,jdbcType=VARCHAR}
-				#{gender,jdbcType=VARCHAR,jdbcType=VARCHAR}
-				#{commentInfo,jdbcType=VARCHAR,jdbcType=VARCHAR}
-				#{loginName,jdbcType=VARCHAR,jdbcType=VARCHAR}
-				#{password,jdbcType=VARCHAR,jdbcType=VARCHAR}
-				#{chineseName,jdbcType=VARCHAR,jdbcType=VARCHAR}
-				#{identificationCard,jdbcType=VARCHAR,jdbcType=VARCHAR}
-				#{mobilePhone,jdbcType=VARCHAR,jdbcType=VARCHAR}
-				#{email,jdbcType=VARCHAR,jdbcType=VARCHAR}
-				#{state,jdbcType=VARCHAR,jdbcType=VARCHAR}
-				#{entryTime,jdbcType=DATE,jdbcType=DATE}
-				#{dimissionTime,jdbcType=DATE,jdbcType=DATE}
-				#{createBy,jdbcType=VARCHAR,jdbcType=VARCHAR}
-				#{createTime,jdbcType=DATE,jdbcType=DATE}
-				#{lastmodifyBy,jdbcType=VARCHAR,jdbcType=VARCHAR}
+				#{id,jdbcType=VARCHAR,jdbcType=VARCHAR},
+				#{gender,jdbcType=VARCHAR,jdbcType=VARCHAR},
+				#{commentInfo,jdbcType=VARCHAR,jdbcType=VARCHAR},
+				#{loginName,jdbcType=VARCHAR,jdbcType=VARCHAR},
+				#{password,jdbcType=VARCHAR,jdbcType=VARCHAR},
+				#{chineseName,jdbcType=VARCHAR,jdbcType=VARCHAR},
+				#{identificationCard,jdbcType=VARCHAR,jdbcType=VARCHAR},
+				#{mobilePhone,jdbcType=VARCHAR,jdbcType=VARCHAR},
+				#{email,jdbcType=VARCHAR,jdbcType=VARCHAR},
+				#{state,jdbcType=VARCHAR,jdbcType=VARCHAR},
+				#{entryTime,jdbcType=DATE,jdbcType=DATE},
+				#{dimissionTime,jdbcType=DATE,jdbcType=DATE},
+				#{createBy,jdbcType=VARCHAR,jdbcType=VARCHAR},
+				#{createTime,jdbcType=DATE,jdbcType=DATE},
+				#{lastmodifyBy,jdbcType=VARCHAR,jdbcType=VARCHAR},
 				#{lastmodifyTime,jdbcType=DATE,jdbcType=DATE}
 		)
 	</insert>
