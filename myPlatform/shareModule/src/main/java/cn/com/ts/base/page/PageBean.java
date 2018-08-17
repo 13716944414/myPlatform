@@ -1,8 +1,10 @@
-package cn.com.ts.base;
+package cn.com.ts.base.page;
 
 import java.util.List;
 
-public class PageBean<T> {
+import cn.com.ts.base.page.Page;
+
+public class PageBean<T> implements Page<T>{
 
 	// 已知数据
 	private int currentPage;//当前页码,页面传参
@@ -43,28 +45,29 @@ public class PageBean<T> {
 	}
 
 	public int getTotalPage() {
-		return totalPage;
-	}
-
-	public void setTotalPage(int totalPage) {
 		if(this.totalRecord % this.pageSize == 0){
 			this.totalPage = this.totalRecord / this.pageSize;
 		}else{
 			this.totalPage = this.totalRecord / this.pageSize + 1;
 		}
+		return this.totalPage;
+	}
+
+	public void setTotalPage(int totalPage) {
+		this.totalPage = totalPage;
 	}
 
 	public int getCurrentRecord() {
-		return currentRecord;
-	}
-
-	public void setCurrentRecord(int currentRecord) {
 		if(this.currentPage <= 1){
 			this.currentRecord = 0;
 		}else{
 			this.currentRecord = (this.currentPage - 1) * this.pageSize;
 		}
-		
+		return this.currentRecord;
+	}
+
+	public void setCurrentRecord(int currentRecord) {
+		this.currentRecord = currentRecord;
 	}
 
 	public List<T> getList() {
