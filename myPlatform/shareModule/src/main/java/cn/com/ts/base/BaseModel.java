@@ -1,16 +1,16 @@
 package cn.com.ts.base;
 
-import cn.com.ts.base.page.Page;
+import cn.com.ts.base.page.PageBean;
 
-public class BaseModel<T> {
+public class BaseModel implements java.io.Serializable {
 
-	Page<T> page;
-	
-	public Page<T> getPage() {
+	PageBean page = new PageBean();
+
+	public PageBean getPage() {
 		return page;
 	}
 
-	public void setPage(Page<T> page) {
+	public void setPage(PageBean page) {
 		this.page = page;
 	}
 

@@ -2,9 +2,11 @@ package cn.com.ts.base.page;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import cn.com.ts.base.page.Page;
 
-public class PageBean<T> implements Page<T>{
+public class PageBean implements Page{
 
 	// 已知数据
 	private int currentPage;//当前页码,页面传参
@@ -18,7 +20,13 @@ public class PageBean<T> implements Page<T>{
 	
 	private int currentRecord;//当前页记录起始索引,也就是在数据库中要从第几行开始拿数据
 	
-	private List<T> list;//查询的结果集
+	private List list;//查询的结果集
+	
+	
+
+	public PageBean() {
+		System.out.println("init PageBean...");
+	}
 
 	public int getCurrentPage() {
 		return currentPage;
@@ -70,11 +78,11 @@ public class PageBean<T> implements Page<T>{
 		this.currentRecord = currentRecord;
 	}
 
-	public List<T> getList() {
+	public List getList() {
 		return list;
 	}
 
-	public void setList(List<T> list) {
+	public void setList(List list) {
 		this.list = list;
 	}
 	

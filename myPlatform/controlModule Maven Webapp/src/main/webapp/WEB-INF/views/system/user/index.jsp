@@ -32,6 +32,10 @@
 				url : contextPath + "/user/page",
 				type : "post",
 				dataType : "json",
+				data : {
+					currentPage : 1,
+					pageSize : 5
+				},
 				success : function(data){
 					console.info(data);
 				}

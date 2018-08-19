@@ -45,6 +45,11 @@
 				<!-- <property name="jdbcTypeForNull" value="NULL"></property> -->
 			</bean>
 		</property>
+		<property name="plugins">
+			<array>
+				<bean class="cn.com.ts.base.page.PagePlugins"></bean>
+			</array>
+		</property>
 		<!-- 别名 -->
 		<!-- <property name="typeAliasesPackage" value="com.zhangguo.bookstore.entities"></property> -->
 		<!-- sql映射文件路径 -->

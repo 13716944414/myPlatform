@@ -2,7 +2,7 @@ package cn.com.ts.base.page;
 
 import java.util.List;
 
-public interface Page<T> {
+public interface Page {
 	
 	public int getCurrentPage();
 
@@ -24,8 +24,8 @@ public interface Page<T> {
 
 	public void setCurrentRecord(int currentRecord);
 
-	public List<T> getList();
+	public List getList();
 
-	public void setList(List<T> list);
+	public void setList(List list);
 
 }

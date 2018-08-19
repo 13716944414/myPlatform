@@ -34,7 +34,7 @@ public class SUserController {
 	@ResponseBody
 	@RequestMapping(value="page", method=RequestMethod.POST)
 	public List<SUser> page(SUser model){
-		List<SUser> list = userService.list(model);
+		List<SUser> list = userService.page(model);
 		return list;
 	}
 	
