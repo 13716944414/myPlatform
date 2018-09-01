@@ -23,7 +23,7 @@ public class SUserController {
 
 	public SUserController() {
 		super();
-		System.out.println("init SUserController................");
+		System.out.println("init SUserController................aaa");
 	}
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
